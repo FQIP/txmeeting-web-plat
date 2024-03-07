@@ -1,0 +1,611 @@
+$Dblue-theme : (
+  // #0a6feb
+  theme: #0a6feb, // 主题色
+  theme-default-bg: #ffffff, // 默认背景色
+  theme-default-active: #ffffff, // 组件选中的背景色
+  default-font: #000000, // 默认字体颜色
+  header-bg: #0a6feb, // 头部背景色
+  header-font-color: #ffffff,
+  border-color: #0a6feb,
+  bg-color: #ffffff, // 左边菜单背景色
+  hover-bg-color: #e8f2ff, // 菜单鼠标悬浮背景色
+  active-bg-color: #e8f2ff, // 菜单选中背景色
+  default-color: #8D90A3, // 菜单默认颜色
+  active-font-color: #2A4E57, // 菜单选中内容颜色
+  active-content-color: #0a6feb, // 菜单选中左边线条颜色
+  main-bg: #F0F2F5, // main-container 背景色
+  content-bg: #ffffff, // custom-main-container 背景色
+  toggle-bg: #e0e6ec, // 菜单折叠按钮
+  ui-bg: #ffffff, // 组件的背景
+  ui-border: #DCDFE6, // 组件的边框
+  font-color-1: #333,
+  font-color-2: #999,
+);
+
+
+/* 定义映射集合 */
+$themes: (
+  Dblue-theme: $Dblue-theme,
+);
+
+// 主题色
+@mixin base-theme($attrs, $isBlack: false, $isHover: false, $isLight: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @each $attr in $attrs {
+        @if $isBlack {
+          @if '#{$name}' == 'Nblack-theme' {
+            #{$attr}: map-get($map: $value, $key: active-font-color) !important;
+            @if $isLight {
+              #{$attr}: lighten(map-get($map: $value, $key: active-font-color), 20%) !important;
+            }
+          }
+          @else {
+            #{$attr}: map-get($map: $value, $key: theme) !important;
+            @if $isLight {
+              #{$attr}: lighten(map-get($map: $value, $key: theme), 20%) !important;
+            }
+          }
+        }
+        @else {
+          #{$attr}: map-get($map: $value, $key: theme) !important;
+        }
+        @if $isHover {
+          @if '#{$name}' == 'Nblack-theme' {
+            @if '#{$attr}' == 'color' {
+              #{$attr}: #fff !important;
+            }
+          }
+          @else {
+            @if '#{$attr}' == 'color' {
+              $color: darken(map-get($map: $value, $key: theme), 50%);
+              #{$attr}: $color !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// ui组件背景色
+@mixin base-ui-bg($isTableHeader: false, $isLinshi: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if '#{$name}' == 'Nblack-theme' {
+        border-color: transparent !important;
+        @if $isTableHeader {
+          border-color: #292f4d !important;
+        }
+        @else if $isLinshi {
+          border-color: #DCDFE6 !important;
+        }
+        color: #fff !important;
+        background-color: map-get($map: $value, $key: ui-border) !important;
+      }
+      @else {
+        border-color: map-get($map: $value, $key: ui-border) !important;
+      }
+    }
+  }
+}
+
+// 头部背景色
+@mixin base-header-bg() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      background-color: map-get($map: $value, $key: header-bg) !important;
+    }
+  }
+}
+
+// 头部文字颜色
+@mixin base-header-color() {
+  @each $colorName, $colorValue in $themes {
+    [data-theme='#{$colorName}'] & {
+      color: map-get($map: $colorValue, $key: header-font-color) !important;
+    }
+  }
+}
+
+// 菜单背景色
+@mixin base-background($falg: true) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $falg {
+        background-color: map-get($map: $value, $key: bg-color) !important;
+      }
+      @else {
+        color: map-get($map: $value, $key: bg-color) !important;
+      }
+    }
+  }
+}
+
+// 菜单默认色调
+@mixin base-default-color($falg: true) {
+  @each $colorName, $colorValue in $themes {
+    [data-theme='#{$colorName}'] & {
+      @if $falg {
+        color: map-get($map: $colorValue, $key: default-color) !important;
+      }
+      @else {
+        background-color: map-get($map: $colorValue, $key: default-color) !important;
+      }
+    }
+  }
+}
+
+// 菜单, 表格行悬浮
+@mixin base-hover() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      background-color: map-get($map: $value, $key: hover-bg-color) !important;
+      opacity: 0.8;
+    }
+  }
+}
+
+// 菜单选中色调
+@mixin menu-active($isTree: false) {
+  @each $colorName, $colorValue in $themes {
+    [data-theme='#{$colorName}'] & {
+      @if '#{$colorName}' == 'Dblue-theme'{
+        color: map-get($map: $colorValue, $key: active-content-color) !important;
+        background-color: map-get($map: $colorValue, $key: active-bg-color) !important;
+      }
+      @else {
+        color: #fff !important;
+        background-color: map-get($map: $colorValue, $key: active-bg-color) !important;
+        @if '#{$colorName}' == 'Nblack-theme'{
+          @if $isTree {
+            background-color: map-get($map: $colorValue, $key: theme) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 文字色调
+@mixin base-font-color() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      color: map-get($map: $value, $key: active-content-color) !important;
+    }
+  }
+}
+
+// 边框色调
+@mixin base-border($dir, $isActive: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $isActive{
+        border-#{$dir}-color: map-get($map: $value, $key: active-content-color) !important;
+      }
+      @else {
+        border-#{$dir}-color: map-get($map: $value, $key: border-color) !important;
+      }
+    }
+  }
+}
+
+// box-border
+@mixin box-border() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if '#{$name}' == 'Nblack-theme' {
+        border-color: map-get($map: $value, $key: theme) !important;
+      }
+      @else {
+        border-color: map-get($map: $value, $key: main-bg) !important;
+      }
+    }
+  }
+}
+
+// 菜单选中左边填充背景
+@mixin menu-active-content($isIcon: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $isIcon {
+        @if '#{$name}' == 'Dblue-theme' {
+          color: map-get($map: $Dblue-theme, $key: theme) !important;
+        }
+        @else {
+          color: #fff !important;
+        }
+      }
+      @else {
+        background-color: map-get($map: $value, $key: active-content-color) !important;
+      }
+    }
+  }
+}
+
+// main-container背景
+@mixin base-main-background() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      background-color: map-get($map: $value, $key: main-bg) !important;
+    }
+  }
+}
+
+// custom-main-container背景
+@mixin base-custom-background() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      background-color: map-get($map: $value, $key: content-bg) !important;
+    }
+  }
+}
+
+// 折叠菜单背景
+@mixin base-toggle-background($falg: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $falg {
+        border-left-color: map-get($map: $value, $key: toggle-bg) !important;
+      }
+      @else {
+        background-color: map-get($map: $value, $key: toggle-bg) !important;
+      }
+    }
+  }
+}
+
+// 头部菜单选中
+@mixin base-nav-active($isNav: false) {
+  @each $colorName, $colorValue in $themes {
+    [data-theme='#{$colorName}'] & {
+      @if $isNav {
+        @if '#{$colorName}' == 'Nblack-theme' {
+          color: map-get($map: $colorValue, $key: header-font-color) !important;
+        }
+        @else {
+          color: map-get($map: $colorValue, $key: theme-default-active) !important;
+        }
+      }
+      @else {
+        @if '#{$colorName}' == 'Nblack-theme' {
+          color: map-get($map: $colorValue, $key: theme-default-active) !important;
+        }
+        @else {
+          color: map-get($map: $colorValue, $key: theme) !important;
+        }
+      }
+    }
+  }
+}
+
+// ui menu填充
+@mixin ui-menu-h() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if '#{$name}' == 'Nblack-theme' {
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+// ui radio填充
+@mixin ui-radio-bg($attrs: ('background-color', 'border-color'), $isDefault: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if '#{$name}' == 'Nblack-theme' {
+        @each $attr in $attrs {
+          #{$attr}: map-get($map: $value, $key: theme-default-active) !important;
+        }
+        @if $isDefault {
+          color: #fff !important;
+        }
+      }
+      @else {
+      }
+    }
+  }
+}
+
+// ui pagination填充
+@mixin ui-pagination-bg($isDefault: true) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      border: 1px solid #ddd; //2D3446
+      border-radius: 4px;
+      @if $isDefault {
+        @if '#{$name}' == 'Nblack-theme' {
+          background-color: map-get($map: $value, $key: theme-default-bg) !important;
+          border: 1px solid #2D3446 !important;
+          color: #c0c4cc !important;
+        }
+        @else {
+          background-color: map-get($map: $value, $key: theme-default-bg) !important;
+        }
+      }
+      @else {
+        @if '#{$name}' == 'Nblack-theme' {
+          background-color: map-get($map: $value, $key: theme-default-active) !important;
+          border: map-get($map: $value, $key: theme-default-active) !important;
+        }
+        @else {
+          background-color: map-get($map: $value, $key: theme) !important;
+          border: map-get($map: $value, $key: theme) !important;
+        }
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+// ui button填充
+@mixin ui-button-bg($isNightTableBtn: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      color: #fff !important;
+      @if '#{$name}' == 'Nblack-theme' {
+        @if $isNightTableBtn {
+          background-color: map-get($map: $value, $key: theme) !important;
+          color: map-get($map: $value, $key: active-font-color) !important;
+        }
+        @else {
+          background-color: map-get($map: $value, $key: theme-default-active) !important;
+          border-color: map-get($map: $value, $key: theme-default-active) !important;
+        }
+      }
+      @else {
+        background-color: map-get($map: $value, $key: theme) !important;
+        border-color: map-get($map: $value, $key: theme) !important;
+      }
+    }
+  }
+}
+
+// ui select填充
+@mixin ui-select-bg() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & ~ {
+      @if '#{$name}' == 'Nblack-theme' {
+        background-color: map-get($map: $value, $key: theme) !important;
+      }
+      @else {
+      }
+    }
+  }
+}
+
+// ui dialog填充
+@mixin ui-dialog-bg() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      color: #fff !important;
+      @if '#{$name}' == 'Nblack-theme' {
+        background-color: lighten(map-get($map: $value, $key: main-bg), 3%) !important;
+      }
+      @else {
+        background-color: map-get($map: $value, $key: theme) !important;
+      }
+    }
+  }
+}
+
+// step填充
+@mixin step-font($active: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $active {
+        @if '#{$name}' == 'Nblack-theme' {
+          color: map-get($map: $value, $key: theme-default-active) !important;
+        }
+        @else {
+          color: map-get($map: $value, $key: theme) !important;
+        }
+      }
+      @else {
+        @if '#{$name}' == 'Nblack-theme' {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
+
+@mixin step-bg($complete, $active) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $complete {
+        @if '#{$name}' == 'Nblack-theme' {
+          border-color: map-get($map: $value, $key: theme-default-active) !important;
+          color: map-get($map: $value, $key: theme-default-active) !important;
+        }
+        @else {
+          border-color: map-get($map: $value, $key: theme) !important;
+          color: map-get($map: $value, $key: theme) !important;
+        }
+      }
+      @else {
+        @if $active {
+          @if '#{$name}' == 'Nblack-theme' {
+            background-color: map-get($map: $value, $key: theme-default-active) !important;
+          }
+          @else {
+            background-color: map-get($map: $value, $key: theme) !important;
+          }
+        }
+        @else {
+
+        }
+      }
+    }
+  }
+}
+
+@mixin el-tooltip($isDark: false, $dir: 'top') {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $isDark {
+        @if '#{$name}' == 'Nblack-theme' {
+          background-color: #f1f1f1 !important;
+          color: #000 !important;
+          .popper__arrow {
+            @if $dir {
+              border-#{$dir}-color: #f1f1f1 !important;
+            }
+            &::after {
+              @if $dir {
+                border-#{$dir}-color: #f1f1f1 !important;
+              }
+            }
+          }
+        }
+        @else {
+          @if '#{$name}' == 'Dblue-theme' {
+            background-color: #303133 !important;
+          }
+          @else {
+            background-color: lighten(map-get($map: $value, $key: theme), 10%) !important;
+          }
+          .popper__arrow {
+            @if '#{$name}' == 'Dblue-theme' {
+              border-#{$dir}-color: #303133 !important;
+            }
+            @else {
+              border-#{$dir}-color: lighten(map-get($map: $value, $key: theme), 10%) !important;
+            }
+            &::after {
+              @if '#{$name}' == 'Dblue-theme' {
+                border-#{$dir}-color: #303133 !important;
+              }
+              @else {
+                border-#{$dir}-color: lighten(map-get($map: $value, $key: theme), 10%) !important;
+              }
+            }
+          }
+        }
+      }
+      @else {
+        @if '#{$name}' == 'Nblack-theme' {}
+        @else {
+          color: map-get($map: $value, $key: theme) !important;
+        }
+      }
+    }
+  }
+}
+
+// tree填充
+@mixin el-tree($isIcon: false, $isText: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $isIcon {
+        @if '#{$name}' == 'Nblack-theme' {
+          background-color: map-get($map: $value, $key: theme-default-active) !important;
+        }
+        @else {
+          background-color: map-get($map: $value, $key: theme) !important;
+        }
+      }
+      @else if $isText {
+        @if '#{$name}' == 'Nblack-theme' {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
+
+// el-message-box
+@mixin el-message-box($isBox: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $isBox {
+        border: none !important;
+      }
+      @else {
+        @if '#{$name}' != 'Nblack-theme' {
+          background-color: map-get($map: $value, $key: theme) !important;
+        }
+      }
+    }
+  }
+}
+
+@mixin host-select($isInput: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if $isInput {
+        @if '#{$name}' == 'Nblack-theme' {
+          background-color: map-get($map: $Nblack-theme, $key: theme-default-active) !important;
+        }
+        @else {
+          background-color: map-get($map: $value, $key: theme) !important;
+          color: #fff !important;
+        }
+      }
+      @else {
+        @if '#{$name}' == 'Nblack-theme' {
+          color: map-get($map: $Nblack-theme, $key: theme-default-active) !important;
+        }
+        @else {
+          color: map-get($map: $value, $key: theme) !important;
+        }
+      }
+    }
+  }
+}
+
+
+@mixin font-color($num: -1) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if '#{$name}' == 'Nblack-theme' {
+        color: #fff !important;
+      }
+      @else {
+        color: map-get($map: $value, $key: font-color#{$num}) !important;
+      }
+    }
+  }
+}
+
+@mixin el-message($type, $isContent: false) {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      // @if '#{$name}' == 'Nblack-theme' {
+      //   background-color: map-get($map: $Nblack-theme, $key: theme-default-bg) !important;
+      //   border-color: map-get($map: $Nblack-theme, $key: theme-default-bg) !important;
+      //   color: #fff !important;
+      // }
+      // @else {
+      //   color: map-get($map: $value, $key: theme) !important;
+      // }
+      @if $type == 'dark' {
+        background-color: rgba(0, 0, 0, .7) !important;
+        border-color: #000 !important;
+        color: #fff !important;
+      }
+      @else if $type == 'success' {
+        background-color: lighten(map-get($map: $value, $key: theme), 28%) !important;
+        border-color: lighten(map-get($map: $value, $key: theme), 28%) !important;
+        @if $isContent {
+          color: map-get($map: $value, $key: theme) !important;
+          @if '#{$name}' == 'Nblack-theme' {
+            color: #fff !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin border-color() {
+  @each $name, $value in $themes {
+    [data-theme='#{$name}'] & {
+      @if '#{$name}' == 'Nblack-theme' {
+        border-color: map-get($map: $Nblack-theme, $key: border-color-1) !important;
+      }
+    }
+  }
+}

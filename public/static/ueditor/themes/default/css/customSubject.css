@@ -1,0 +1,118 @@
+/* toolbar icons */
+.edui-default .edui-for-undo .edui-icon {
+  background: url("../images/undo.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-bold .edui-icon {
+  background: url("../images/blod.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-lineheight .edui-icon {
+  background: url("../images/lineheight.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-cleardoc .edui-icon {
+  background: url("../images/delete.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-topicsummaryclear .edui-icon {
+  background: url("../images/delete.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-indent .edui-icon {
+  background: url("../images/indent.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-save .edui-icon {
+  background: url("../images/save.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+.edui-default  .edui-for-topicsummarysave .edui-icon {
+  background: url("../images/save.svg") no-repeat;
+  background-size: 1.4rem;
+  background-position: center;
+}
+
+/*splitbutton*/
+.edui-default .edui-toolbar .edui-splitbutton-body .edui-arrow,
+.edui-default .edui-toolbar .edui-menubutton-body .edui-arrow {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.edui-default .edui-toolbar .edui-splitbutton .edui-splitbutton-body,
+.edui-default .edui-toolbar .edui-menubutton .edui-menubutton-body {
+  position: relative;
+}
+
+.edui-default .edui-toolbar .edui-splitborder {
+  width: 1px;
+  height: 20px;
+}
+
+.edui-default .edui-toolbar .edui-state-hover .edui-splitborder {
+  width: 1px;
+}
+
+.edui-default .edui-toolbar .edui-state-active .edui-splitborder {
+  width: 0;
+}
+
+.edui-default .edui-toolbar .edui-state-opened .edui-splitborder {
+  width: 1px;
+  border: 0;
+}
+
+.edui-default .edui-toolbar .edui-splitbutton .edui-state-hover .edui-splitbutton-body,
+.edui-default .edui-toolbar .edui-menubutton .edui-state-hover .edui-menubutton-body {
+  background-color: #fff5d4;
+  padding: 0;
+}
+
+.edui-default .edui-toolbar .edui-splitbutton .edui-state-checked .edui-splitbutton-body,
+.edui-default .edui-toolbar .edui-menubutton .edui-state-checked .edui-menubutton-body {
+  background-color: #FFE69F;
+  padding: 0;
+}
+
+.edui-default .edui-toolbar .edui-splitbutton .edui-state-active .edui-splitbutton-body,
+.edui-default .edui-toolbar .edui-menubutton .edui-state-active .edui-menubutton-body {
+  background-color: #fff5d4;
+  padding: 0;
+}
+
+.edui-default .edui-state-disabled .edui-arrow {
+  opacity: 0.3;
+  _filter: alpha(opacity = 30);
+}
+
+.edui-default .edui-toolbar .edui-splitbutton .edui-state-opened .edui-splitbutton-body,
+.edui-default .edui-toolbar .edui-menubutton .edui-state-opened .edui-menubutton-body {
+  background-color: #fff5d4;
+  padding: 0;
+}
+
+.edui-default .edui-for-insertorderedlist .edui-bordereraser,
+.edui-default .edui-for-lineheight .edui-bordereraser,
+.edui-default .edui-for-rowspacingtop .edui-bordereraser,
+.edui-default .edui-for-rowspacingbottom .edui-bordereraser,
+.edui-default .edui-for-insertunorderedlist .edui-bordereraser {
+  background-color: white;
+}
+

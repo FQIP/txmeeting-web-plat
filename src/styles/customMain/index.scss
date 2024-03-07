@@ -1,0 +1,24 @@
+.custom-main-container {
+  width: 100%;
+  min-height: inherit;
+  background: #EDF0F9;
+  padding: 1rem 1.25rem;
+  &__form {
+    .el-form-item {
+      margin-left: 2rem;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    .el-input,
+    .select {
+      width: 19.9vw;
+    }
+  }
+  &__content {
+    background: #fff;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    min-height: calc(100% - 61px);
+  }
+}
